@@ -25,6 +25,8 @@ services:
     image: node
     volumes:
       - ~/Documents/test/nodejs:/app
+    working_dir: /
+    command: git clone https://github.com/xuming314/test.git
 
   mongo:
     container_name: test_mongo
