@@ -1,0 +1,23 @@
+src:
+  container_name: test_src
+  image: node
+  volumes:
+    - /app
+
+web:
+  container_name: test_web
+  image: node
+  ports:
+    - "8000:8000"
+  links:
+    - mongo:db.do5173.com
+  volumes_from:
+    - test_src
+  working_dir: /app
+  command: node index.js
+
+
+
+mongo:
+  container_name: test_mongo
+  image: mongo
