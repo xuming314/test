@@ -1,0 +1,33 @@
+pkg-zip:
+  container_name: pkg-zip
+  image: node
+  volumes:
+    - ..:/tar
+  working_dir: /
+  command: /bin/bash -c 'mkdir /do5173 && cd /do5173 && git clone https://github.com/xuming314/test.git && cd test && npm install && tar -cvf /tar/pkg.tar ./node_modules'
+
+pkg:
+  container_name: pkg
+  image: node
+  volumes:
+    - pkg:/do5173/node_modules
+    - ..:/tar
+  working_dir: /do5173/
+  command: /bin/bash -c 'rm -rf ./node_modules/* && tar xvf /tar/pkg.tar --strip 1'
+
+dist-zip:
+  container_name: dist-zip
+  image: node
+  volumes:
+    - ..:/tar
+  working_dir: /
+  command: /bin/bash -c 'mkdir /dist && cd /dist && git clone https://github.com/xuming314/test.git && cd test && tar --exclude ./git -cvf /tar/dist.tar .'
+
+dist:
+  container_name: dist
+  image: node
+  volumes:
+    - dist:/do5173
+    - ..:/tar
+  working_dir: /do5173
+  command: /bin/bash -c 'rm -rf ./do5173/* && tar xvf /tar/dist.tar --strip 1'

@@ -1,0 +1,1 @@
+docker-compose -f install.yml run --rm dist-zip

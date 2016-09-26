@@ -1,3 +1,6 @@
-image: node
-script:
-  - npm install
+build:
+  image: node
+  commands:
+    - npm install
+
+
